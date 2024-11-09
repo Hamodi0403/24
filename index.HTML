@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عد تنازلي</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #282c34;
+            color: white;
+        }
+        .countdown {
+            text-align: center;
+        }
+        .countdown h1 {
+            font-size: 3rem;
+        }
+        .time {
+            font-size: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="countdown">
+        <h1>العد التنازلي</h1>
+        <div class="time" id="countdown"></div>
+    </div>
+
+    <script>
+        // ضبط المؤقت لـ 24 ساعة (86400000 ملي ثانية)
+        const countdownTime = new Date().getTime() + 86400000;
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = countdownTime - now;
+
+            // احسب الساعات والدقائق والثواني
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("countdown").innerHTML = `${hours} : ${minutes} : ${seconds}`;
+
+            if (distance < 0) {
+                clearInterval(timer);
+                document.getElementById("countdown").innerHTML = "انتهى الوقت!";
+            }
+        }
+
+        const timer = setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
